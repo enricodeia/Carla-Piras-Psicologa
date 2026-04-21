@@ -975,28 +975,47 @@ export default function Hero({
             </em>
           </p>
         </div>
-        <button
-          type="button"
-          className="foot-cta"
-          onClick={() => setActiveSection("contatti")}
-          onPointerEnter={() => setFootCtaHover(true)}
-          onPointerLeave={() => setFootCtaHover(false)}
-        >
-          <span className="foot-cta-stack">
+        <div className="foot-ctas">
+          <button
+            type="button"
+            className="foot-cta foot-cta--secondary"
+            onClick={() => toggleSection("chi-sono")}
+          >
             <StaggerButton
               as="span"
               className="foot-cta-label"
-              triggerSelector=".foot-cta"
+              triggerSelector=".foot-cta--secondary"
             >
-              Primo colloquio
+              Chi sono
             </StaggerButton>
-            <span className="foot-cta-sub">Albo Psicologi Lombardia · n. 26906</span>
-          </span>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="5" y1="12" x2="19" y2="12" />
-            <polyline points="12 5 19 12 12 19" />
-          </svg>
-        </button>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            className="foot-cta foot-cta--primary"
+            onClick={() => setActiveSection("contatti")}
+            onPointerEnter={() => setFootCtaHover(true)}
+            onPointerLeave={() => setFootCtaHover(false)}
+          >
+            <span className="foot-cta-stack">
+              <StaggerButton
+                as="span"
+                className="foot-cta-label"
+                triggerSelector=".foot-cta--primary"
+              >
+                Primo colloquio
+              </StaggerButton>
+              <span className="foot-cta-sub">Albo Psicologi Lombardia · n. 26906</span>
+            </span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   );

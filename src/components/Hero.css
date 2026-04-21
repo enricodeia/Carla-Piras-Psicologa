@@ -650,6 +650,10 @@ a.ct-val:hover::after {
   font-weight: inherit;
 }
 
+.foot-ctas {
+  display: contents;
+}
+
 .foot-cta {
   display: inline-flex;
   align-items: center;
@@ -664,7 +668,24 @@ a.ct-val:hover::after {
   line-height: 1;
   font-family: inherit;
   cursor: inherit;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.foot-cta--secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+}
+
+.foot-cta--secondary:hover {
+  background: var(--ink);
+  color: var(--beige-100);
+}
+
+@media (min-width: 901px) {
+  .foot-cta--secondary {
+    display: none;
+  }
 }
 
 .foot-cta-stack {
@@ -726,9 +747,21 @@ a.ct-val:hover::after {
     padding-left: 0;
   }
 
+  .foot-ctas {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: stretch;
+  }
+
   .foot-cta {
+    flex: 1;
     justify-content: space-between;
-    padding: 14px 20px;
+    padding: 14px 18px;
+  }
+
+  .foot-cta--secondary {
+    flex: 0 1 auto;
   }
 
   .foot-cta-stack {
