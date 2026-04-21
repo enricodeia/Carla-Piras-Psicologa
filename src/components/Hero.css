@@ -756,17 +756,18 @@ a.ct-val:hover::after {
     padding: 26px 22px 28px;
   }
 
-  .hero[data-active="chi-sono"] .bio-panel,
-  .hero[data-active="come-lavoro"] .bio-panel {
+  .bio-panel[aria-hidden="false"] {
     top: auto;
     bottom: 0;
     left: 0;
     right: 0;
     width: 100vw;
-    height: 60dvh;
+    height: 70dvh;
+    max-height: 100dvh;
     translate: 0 0;
     border-radius: var(--r-card, 14px) var(--r-card, 14px) 0 0;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     padding: 24px 22px 28px;
   }
 }

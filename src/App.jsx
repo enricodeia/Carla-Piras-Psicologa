@@ -202,7 +202,7 @@ export default function App() {
 
   return (
     <>
-      <Leva collapsed oneLineLabels titleBar={{ title: "Carla Piras — controls" }} />
+      <Leva hidden />
       <MeshlineCursor params={cursor} />
       <PointerDot params={pointer} />
       <Hero

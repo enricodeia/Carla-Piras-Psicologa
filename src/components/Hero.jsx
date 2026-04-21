@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import gsap from "gsap";
 import StaggerButton from "./StaggerButton.jsx";
 import ContactModal from "./ContactModal.jsx";
@@ -838,96 +839,101 @@ export default function Hero({
 
       <div className="percentage" ref={percRef}>00</div>
 
-      <aside
-        className="bio-panel"
-        ref={(el) => (panelsRef.current["chi-sono"] = el)}
-        aria-hidden={activeSection !== "chi-sono"}
-      >
-        <button type="button" className="bio-close" onClick={() => toggleSection("chi-sono")} aria-label="Chiudi">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
-            <line x1="6" y1="6" x2="18" y2="18" />
-            <line x1="18" y1="6" x2="6" y2="18" />
-          </svg>
-        </button>
-        <span className="bio-index">02 · Chi sono</span>
-        <h2 className="bio-title">
-          Uno spazio <em>d'ascolto,</em>
-          <br />
-          senza giudizio.
-        </h2>
-        <div className="bio-body">
-          <p className="bio-lead">
-            Sono <strong>Carla Piras</strong>, psicologa clinica e specializzanda
-            in psicoterapia integrata, iscritta all'Albo degli Psicologi della
-            Lombardia n. 26906.
-          </p>
-          <p>
-            Ho maturato esperienza in contesti ospedalieri e territoriali, tra
-            cui il Policlinico di Milano e l'Ospedale San Paolo, Centro per i
-            Disturbi della Nutrizione e dell'Alimentazione in età evolutiva,
-            accompagnando adolescenti, adulti e famiglie.
-          </p>
-          <p>
-            Credo che ogni vissuto meriti ascolto, comprensione e uno spazio in
-            cui potersi sentire accolti, senza giudizio.
-          </p>
-        </div>
-        <div className="bio-sign">
-          <span className="sign-line" />
-          <span>Milano &amp; Online · Adolescenti · Adulti · Famiglie</span>
-        </div>
-      </aside>
+      {createPortal(
+        <>
+          <aside
+            className="bio-panel"
+            ref={(el) => (panelsRef.current["chi-sono"] = el)}
+            aria-hidden={activeSection !== "chi-sono"}
+          >
+            <button type="button" className="bio-close" onClick={() => toggleSection("chi-sono")} aria-label="Chiudi">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+                <line x1="6" y1="6" x2="18" y2="18" />
+                <line x1="18" y1="6" x2="6" y2="18" />
+              </svg>
+            </button>
+            <span className="bio-index">02 · Chi sono</span>
+            <h2 className="bio-title">
+              Uno spazio <em>d'ascolto,</em>
+              <br />
+              senza giudizio.
+            </h2>
+            <div className="bio-body">
+              <p className="bio-lead">
+                Sono <strong>Carla Piras</strong>, psicologa clinica e specializzanda
+                in psicoterapia integrata, iscritta all'Albo degli Psicologi della
+                Lombardia n. 26906.
+              </p>
+              <p>
+                Ho maturato esperienza in contesti ospedalieri e territoriali, tra
+                cui il Policlinico di Milano e l'Ospedale San Paolo, Centro per i
+                Disturbi della Nutrizione e dell'Alimentazione in età evolutiva,
+                accompagnando adolescenti, adulti e famiglie.
+              </p>
+              <p>
+                Credo che ogni vissuto meriti ascolto, comprensione e uno spazio in
+                cui potersi sentire accolti, senza giudizio.
+              </p>
+            </div>
+            <div className="bio-sign">
+              <span className="sign-line" />
+              <span>Milano &amp; Online · Adolescenti · Adulti · Famiglie</span>
+            </div>
+          </aside>
 
-      <aside
-        className="bio-panel"
-        ref={(el) => (panelsRef.current["come-lavoro"] = el)}
-        aria-hidden={activeSection !== "come-lavoro"}
-      >
-        <button type="button" className="bio-close" onClick={() => toggleSection("come-lavoro")} aria-label="Chiudi">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
-            <line x1="6" y1="6" x2="18" y2="18" />
-            <line x1="18" y1="6" x2="6" y2="18" />
-          </svg>
-        </button>
-        <span className="bio-index">01 · Come lavoro</span>
-        <h2 className="bio-title">
-          Un percorso costruito <em>insieme,</em>
-          <br />
-          nel rispetto dei tuoi tempi.
-        </h2>
-        <ol className="bio-steps">
-          <li>
-            <span className="step-num">01</span>
-            <div>
-              <h3>Primo colloquio</h3>
-              <p>
-                Un momento di conoscenza reciproca in cui potrai raccontare ciò
-                che ti ha portato a chiedere supporto.
-              </p>
-            </div>
-          </li>
-          <li>
-            <span className="step-num">02</span>
-            <div>
-              <h3>Frequenza e durata</h3>
-              <p>
-                Sedute di circa 50 minuti, generalmente con cadenza settimanale,
-                da definire insieme.
-              </p>
-            </div>
-          </li>
-          <li>
-            <span className="step-num">03</span>
-            <div>
-              <h3>Modalità</h3>
-              <p>
-                Ricevo a Milano, in Via Cosimo del Fante e in Viale Famagosta, e
-                online: scegli ciò che si adatta meglio alle tue esigenze.
-              </p>
-            </div>
-          </li>
-        </ol>
-      </aside>
+          <aside
+            className="bio-panel"
+            ref={(el) => (panelsRef.current["come-lavoro"] = el)}
+            aria-hidden={activeSection !== "come-lavoro"}
+          >
+            <button type="button" className="bio-close" onClick={() => toggleSection("come-lavoro")} aria-label="Chiudi">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+                <line x1="6" y1="6" x2="18" y2="18" />
+                <line x1="18" y1="6" x2="6" y2="18" />
+              </svg>
+            </button>
+            <span className="bio-index">01 · Come lavoro</span>
+            <h2 className="bio-title">
+              Un percorso costruito <em>insieme,</em>
+              <br />
+              nel rispetto dei tuoi tempi.
+            </h2>
+            <ol className="bio-steps">
+              <li>
+                <span className="step-num">01</span>
+                <div>
+                  <h3>Primo colloquio</h3>
+                  <p>
+                    Un momento di conoscenza reciproca in cui potrai raccontare ciò
+                    che ti ha portato a chiedere supporto.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <span className="step-num">02</span>
+                <div>
+                  <h3>Frequenza e durata</h3>
+                  <p>
+                    Sedute di circa 50 minuti, generalmente con cadenza settimanale,
+                    da definire insieme.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <span className="step-num">03</span>
+                <div>
+                  <h3>Modalità</h3>
+                  <p>
+                    Ricevo a Milano, in Via Cosimo del Fante e in Viale Famagosta, e
+                    online: scegli ciò che si adatta meglio alle tue esigenze.
+                  </p>
+                </div>
+              </li>
+            </ol>
+          </aside>
+        </>,
+        document.body
+      )}
 
       <ContactModal
         open={activeSection === "contatti"}
