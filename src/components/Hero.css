@@ -757,17 +757,9 @@ a.ct-val:hover::after {
   }
 
   .bio-panel[aria-hidden="false"] {
-    top: 84px;
-    bottom: 20px;
-    left: 16px;
-    right: 16px;
-    width: auto;
-    height: auto;
-    max-height: none;
-    translate: 0 0;
+    max-height: calc(100dvh - 48px);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 28px 22px 30px;
     border-radius: var(--r-card, 30px);
   }
 }
