@@ -341,7 +341,7 @@
   .hero[data-active="chi-sono"] .photo,
   .hero[data-active="come-lavoro"] .photo {
     width: 100vw;
-    height: 40dvh;
+    height: 60dvh;
   }
 }
 

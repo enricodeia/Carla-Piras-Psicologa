@@ -383,7 +383,7 @@ export default function Hero({
 
     const isMobile = window.matchMedia("(max-width: 900px)").matches;
     const fillX = isMobile ? 0 : "-25vw";
-    const fillY = isMobile ? "-25vh" : 0;
+    const fillY = isMobile ? "-20vh" : 0;
 
     const footItems = footRef.current
       ? footRef.current.querySelectorAll(".tagline, .foot-cta")
