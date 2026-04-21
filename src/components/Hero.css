@@ -51,7 +51,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 1;
+  z-index: 0;
   color: var(--blue-900);
 }
 
@@ -395,7 +395,7 @@
   top: 50%;
   right: 6vw;
   translate: 0 -50%;
-  z-index: 150;
+  z-index: 9999;
   width: min(440px, 38vw);
   padding: 36px 40px 40px;
   background: rgba(247, 240, 227, 0.6);
@@ -719,7 +719,7 @@ a.ct-val:hover::after {
 
   .tagline {
     font-size: var(--tagline-size, 17px);
-    margin-left: 0;
+    margin-left: var(--tagline-ml, 0px);
   }
 
   .foot-left {

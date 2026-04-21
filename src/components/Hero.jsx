@@ -658,10 +658,12 @@ export default function Hero({
       className="hero"
       ref={rootRef}
       data-active={activeSection || "home"}
+      data-preload-complete={preloadComplete ? "true" : undefined}
       style={
         isMobile && mobile
           ? {
               "--tagline-size": `${mobile.taglineSize}px`,
+              "--tagline-ml": `${mobile.taglineMarginLeft}px`,
               "--logo-size": `${mobile.logoSize}px`,
             }
           : undefined

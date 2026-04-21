@@ -14,6 +14,14 @@
   border: none;
   cursor: inherit;
   color: var(--ink);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+}
+
+.hero[data-preload-complete="true"] .hamburger {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .hamburger__bar {
