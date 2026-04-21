@@ -391,11 +391,11 @@
 
 /* BIO PANEL — editorial chi sono */
 .bio-panel {
-  position: absolute;
+  position: fixed;
   top: 50%;
   right: 6vw;
   translate: 0 -50%;
-  z-index: 90;
+  z-index: 150;
   width: min(440px, 38vw);
   padding: 36px 40px 40px;
   background: rgba(247, 240, 227, 0.6);
@@ -719,7 +719,11 @@ a.ct-val:hover::after {
 
   .tagline {
     font-size: var(--tagline-size, 17px);
-    margin-left: -20px;
+    margin-left: 0;
+  }
+
+  .foot-left {
+    padding-left: 0;
   }
 
   .foot-cta {

@@ -137,18 +137,18 @@ export default function App() {
 
   const mobile = useControls("Mobile", {
     titleSizeVw: { value: 17.4, min: 8, max: 30, step: 0.1 },
-    letterTopOffsetVh: { value: 35.9, min: 5, max: 45, step: 0.1 },
-    letterBottomOffsetVh: { value: 35.9, min: 5, max: 45, step: 0.1 },
+    letterTopOffsetVh: { value: 20, min: 5, max: 45, step: 0.1 },
+    letterBottomOffsetVh: { value: 20, min: 5, max: 45, step: 0.1 },
     lettersSideOffsetVw: { value: 29.0, min: 0, max: 45, step: 0.1 },
     letterFinalYVh: { value: 0, min: -30, max: 30, step: 0.1 },
     imageHeightVh: { value: 49.5, min: 20, max: 80, step: 0.5 },
     imageAspect: { value: 0.66, min: 0.4, max: 1.2, step: 0.005 },
     metaLeftX: { value: 10.0, min: 0, max: 50, step: 0.1 },
-    metaLeftY: { value: 4.4, min: 0, max: 95, step: 0.1 },
+    metaLeftY: { value: 9.0, min: 0, max: 95, step: 0.1 },
     metaRightX: { value: 44.0, min: 30, max: 95, step: 0.1 },
     metaRightY: { value: 9.0, min: 0, max: 95, step: 0.1 },
-    taglineSize: { value: 20.0, min: 10, max: 28, step: 0.5 },
-    logoSize: { value: 16, min: 10, max: 26, step: 0.5 },
+    taglineSize: { value: 22, min: 10, max: 32, step: 0.5 },
+    logoSize: { value: 24, min: 10, max: 40, step: 0.5 },
   });
 
   const roundness = useControls("Roundness", {
