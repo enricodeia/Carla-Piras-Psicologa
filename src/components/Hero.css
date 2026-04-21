@@ -395,7 +395,7 @@
   top: 50%;
   right: 6vw;
   translate: 0 -50%;
-  z-index: 18;
+  z-index: 90;
   width: min(440px, 38vw);
   padding: 36px 40px 40px;
   background: rgba(247, 240, 227, 0.6);
@@ -667,6 +667,15 @@ a.ct-val:hover::after {
   transition: background 0.3s ease, color 0.3s ease;
 }
 
+.foot-cta-stack {
+  display: inline-flex;
+  align-items: center;
+}
+
+.foot-cta-sub {
+  display: none;
+}
+
 .foot-cta:hover {
   background: var(--blue-900);
   border-color: var(--blue-900);
@@ -687,22 +696,12 @@ a.ct-val:hover::after {
   }
 
   .logo-home {
-    font-size: 17px;
     padding-top: 4px;
+    font-size: var(--logo-size, 17px);
   }
 
   .nav-right {
-    gap: 6px;
-    align-items: flex-end;
-  }
-
-  .nav-cta {
-    padding: 10px 16px;
-    font-size: 11px;
-  }
-
-  .nav-badge {
-    font-size: 7.2px;
+    display: none;
   }
 
   .hero-foot {
@@ -713,8 +712,37 @@ a.ct-val:hover::after {
     gap: 18px;
   }
 
+  .hero-foot > .foot-cta {
+    justify-self: stretch;
+    width: 100%;
+  }
+
   .tagline {
-    font-size: 17px;
+    font-size: var(--tagline-size, 17px);
+    margin-left: -20px;
+  }
+
+  .foot-cta {
+    justify-content: space-between;
+    padding: 14px 20px;
+  }
+
+  .foot-cta-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    text-align: left;
+  }
+
+  .foot-cta-sub {
+    display: block;
+    color: #ffffff;
+    opacity: 0.45;
+    font-size: 7.2px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    white-space: nowrap;
   }
 
   .bio-panel {

@@ -1,9 +1,10 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import StaggerButton from "./StaggerButton.jsx";
 import ContactModal from "./ContactModal.jsx";
 import Flower from "./Flower.jsx";
 import FlowerBurst from "./FlowerBurst.jsx";
+import HamburgerMenu from "./HamburgerMenu.jsx";
 import "./Hero.css";
 
 const CARLA = "Carla".split("");
@@ -21,7 +22,42 @@ const FLOWERS = [
   { size: 24, delay: 2.1, offsetY: 28, variant: "lean" },
 ];
 
-export default function Hero({ preloader, typography, chisono, tilt, meta }) {
+export default function Hero({
+  preloader,
+  typography,
+  chisono,
+  tilt,
+  meta,
+  mobile,
+  isMobile,
+}) {
+  const ePreloader = useMemo(() => {
+    if (!isMobile || !mobile) return preloader;
+    return {
+      ...preloader,
+      letterTopOffset: mobile.letterTopOffsetVh,
+      letterBottomOffset: mobile.letterBottomOffsetVh,
+      lettersSideOffset: mobile.lettersSideOffsetVw,
+      letterFinalYVh: mobile.letterFinalYVh,
+      imageHeightVh: mobile.imageHeightVh,
+      imageAspect: mobile.imageAspect,
+    };
+  }, [preloader, mobile, isMobile]);
+
+  const eTypography = useMemo(() => {
+    if (!isMobile || !mobile) return typography;
+    return { ...typography, titleSizeVw: mobile.titleSizeVw };
+  }, [typography, mobile, isMobile]);
+
+  const eMeta = useMemo(() => {
+    if (!isMobile || !mobile) return meta;
+    return {
+      leftX: mobile.metaLeftX,
+      leftY: mobile.metaLeftY,
+      rightX: mobile.metaRightX,
+      rightY: mobile.metaRightY,
+    };
+  }, [meta, mobile, isMobile]);
   const rootRef = useRef(null);
   const carlaWordRef = useRef(null);
   const pirasWordRef = useRef(null);
@@ -49,10 +85,11 @@ export default function Hero({ preloader, typography, chisono, tilt, meta }) {
   const [navCtaHover, setNavCtaHover] = useState(false);
   const [footCtaHover, setFootCtaHover] = useState(false);
   const ctaHover = navCtaHover || footCtaHover;
+  const [menuOpen, setMenuOpen] = useState(false);
 
   // Synchronous initial state — runs BEFORE paint so there's no FOUC
   useLayoutEffect(() => {
-    const p = preloader;
+    const p = ePreloader;
     const topY = `-${50 - p.letterTopOffset}vh`;
     const bottomY = `${50 - p.letterBottomOffset}vh`;
 
@@ -124,11 +161,11 @@ export default function Hero({ preloader, typography, chisono, tilt, meta }) {
       ctx.revert();
       rootRef.current?.setAttribute("data-ready", "false");
     };
-  }, [preloader]);
+  }, [ePreloader]);
 
   // Async timeline — waits for image decode to avoid reveal jank
   useEffect(() => {
-    const p = preloader;
+    const p = ePreloader;
     let ctx = null;
     let cancelled = false;
 
@@ -281,7 +318,7 @@ export default function Hero({ preloader, typography, chisono, tilt, meta }) {
       setPreloadComplete(false);
       prevSectionRef.current = null;
     };
-  }, [preloader]);
+  }, [ePreloader]);
 
   // Photo tilt + momentum — only after preloader completes, to avoid matrix
   // conflicts with the mask reveal scale animation on .photo-inner.
@@ -335,7 +372,7 @@ export default function Hero({ preloader, typography, chisono, tilt, meta }) {
     const nextIsPanel = PANEL_SECTIONS.includes(next);
 
     const c = chisono;
-    const p = preloader;
+    const p = ePreloader;
 
     const tl = gsap.timeline();
 
@@ -591,23 +628,23 @@ export default function Hero({ preloader, typography, chisono, tilt, meta }) {
         );
       }
     }
-  }, [activeSection, preloadComplete, chisono, preloader]);
+  }, [activeSection, preloadComplete, chisono, ePreloader]);
 
   const toggleSection = (name) => {
     setActiveSection((cur) => (cur === name ? null : name));
   };
 
   const photoStyle = {
-    "--photo-home-w": `calc(${preloader.imageHeightVh}vh * ${preloader.imageAspect})`,
-    "--photo-home-h": `${preloader.imageHeightVh}vh`,
+    "--photo-home-w": `calc(${ePreloader.imageHeightVh}vh * ${ePreloader.imageAspect})`,
+    "--photo-home-h": `${ePreloader.imageHeightVh}vh`,
   };
 
   const titleStyle = {
-    fontFamily: typography.titleFont,
-    fontWeight: typography.titleWeight,
+    fontFamily: eTypography.titleFont,
+    fontWeight: eTypography.titleWeight,
     fontStyle: "normal",
-    letterSpacing: `${typography.titleTracking}em`,
-    fontSize: `clamp(60px, ${typography.titleSizeVw}vw, 260px)`,
+    letterSpacing: `${eTypography.titleTracking}em`,
+    fontSize: `clamp(60px, ${eTypography.titleSizeVw}vw, 260px)`,
   };
 
   const navItems = [
@@ -617,7 +654,19 @@ export default function Hero({ preloader, typography, chisono, tilt, meta }) {
   ];
 
   return (
-    <div className="hero" ref={rootRef} data-active={activeSection || "home"}>
+    <div
+      className="hero"
+      ref={rootRef}
+      data-active={activeSection || "home"}
+      style={
+        isMobile && mobile
+          ? {
+              "--tagline-size": `${mobile.taglineSize}px`,
+              "--logo-size": `${mobile.logoSize}px`,
+            }
+          : undefined
+      }
+    >
       <div className="decor" ref={decorRef} aria-hidden="true">
         <svg
           className="decor-line decor-line--top"
@@ -661,10 +710,10 @@ export default function Hero({ preloader, typography, chisono, tilt, meta }) {
           onClick={() => setActiveSection(null)}
           aria-label="Torna alla home"
           style={{
-            fontFamily: typography.titleFont,
-            fontWeight: typography.titleWeight,
-            letterSpacing: `${typography.titleTracking}em`,
-            color: typography.titleColorCarla,
+            fontFamily: eTypography.titleFont,
+            fontWeight: eTypography.titleWeight,
+            letterSpacing: `${eTypography.titleTracking}em`,
+            color: eTypography.titleColorCarla,
           }}
         >
           {LOGO.map((c, i) => (
@@ -718,7 +767,7 @@ export default function Hero({ preloader, typography, chisono, tilt, meta }) {
       <div
         className="hero-meta hero-meta--left"
         ref={metaLeftRef}
-        style={{ left: `${meta.leftX}vw`, top: `${meta.leftY}vh` }}
+        style={{ left: `${eMeta.leftX}vw`, top: `${eMeta.leftY}vh` }}
       >
         <div className="meta-col">
           <span className="meta-label">Ricevo a</span>
@@ -729,7 +778,7 @@ export default function Hero({ preloader, typography, chisono, tilt, meta }) {
       <div
         className="hero-meta hero-meta--right"
         ref={metaRightRef}
-        style={{ left: `${meta.rightX}vw`, top: `${meta.rightY}vh` }}
+        style={{ left: `${eMeta.rightX}vw`, top: `${eMeta.rightY}vh` }}
       >
         <div className="meta-col">
           <span className="meta-label">Adatto per:</span>
@@ -742,7 +791,7 @@ export default function Hero({ preloader, typography, chisono, tilt, meta }) {
       <div
         className="letter carla"
         ref={carlaWordRef}
-        style={{ ...titleStyle, color: typography.titleColorCarla }}
+        style={{ ...titleStyle, color: eTypography.titleColorCarla }}
         aria-label="Carla"
       >
         {CARLA.map((c, i) => (
@@ -759,7 +808,7 @@ export default function Hero({ preloader, typography, chisono, tilt, meta }) {
       <div
         className="letter piras"
         ref={pirasWordRef}
-        style={{ ...titleStyle, color: typography.titleColorPiras }}
+        style={{ ...titleStyle, color: eTypography.titleColorPiras }}
         aria-label="Piras"
       >
         {PIRAS.map((c, i) => (
@@ -885,6 +934,16 @@ export default function Hero({ preloader, typography, chisono, tilt, meta }) {
 
       <FlowerBurst active={ctaHover} count={36} />
 
+      <HamburgerMenu
+        open={menuOpen}
+        onToggle={() => setMenuOpen((v) => !v)}
+        onNavigate={(key) => {
+          setMenuOpen(false);
+          toggleSection(key);
+        }}
+        activeSection={activeSection}
+      />
+
       <div className="flower-field" aria-hidden="true">
         {FLOWERS.map((f, i) => (
           <Flower
@@ -915,13 +974,16 @@ export default function Hero({ preloader, typography, chisono, tilt, meta }) {
           onPointerEnter={() => setFootCtaHover(true)}
           onPointerLeave={() => setFootCtaHover(false)}
         >
-          <StaggerButton
-            as="span"
-            className="foot-cta-label"
-            triggerSelector=".foot-cta"
-          >
-            Primo colloquio
-          </StaggerButton>
+          <span className="foot-cta-stack">
+            <StaggerButton
+              as="span"
+              className="foot-cta-label"
+              triggerSelector=".foot-cta"
+            >
+              Primo colloquio
+            </StaggerButton>
+            <span className="foot-cta-sub">Albo Psicologi Lombardia · n. 26906</span>
+          </span>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="5" y1="12" x2="19" y2="12" />
             <polyline points="12 5 19 12 12 19" />

@@ -4,6 +4,20 @@ import Hero from "./components/Hero.jsx";
 import MeshlineCursor from "./components/MeshlineCursor.jsx";
 import PointerDot from "./components/PointerDot.jsx";
 
+function useMediaQuery(query) {
+  const [matches, setMatches] = useState(() =>
+    typeof window === "undefined" ? false : window.matchMedia(query).matches
+  );
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia(query);
+    const onChange = (e) => setMatches(e.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, [query]);
+  return matches;
+}
+
 const EASE_OUT = [
   "none",
   "power1.out",
@@ -62,6 +76,7 @@ const FONT_OPTIONS = {
 
 export default function App() {
   const [replayKey, setReplayKey] = useState(0);
+  const isMobile = useMediaQuery("(max-width: 900px)");
 
   const typography = useControls("Typography", {
     titleFont: {
@@ -120,10 +135,26 @@ export default function App() {
     rightY: { value: 25.3, min: 0, max: 95, step: 0.1 },
   });
 
+  const mobile = useControls("Mobile", {
+    titleSizeVw: { value: 17.4, min: 8, max: 30, step: 0.1 },
+    letterTopOffsetVh: { value: 35.9, min: 5, max: 45, step: 0.1 },
+    letterBottomOffsetVh: { value: 35.9, min: 5, max: 45, step: 0.1 },
+    lettersSideOffsetVw: { value: 29.0, min: 0, max: 45, step: 0.1 },
+    letterFinalYVh: { value: 0, min: -30, max: 30, step: 0.1 },
+    imageHeightVh: { value: 49.5, min: 20, max: 80, step: 0.5 },
+    imageAspect: { value: 0.66, min: 0.4, max: 1.2, step: 0.005 },
+    metaLeftX: { value: 10.0, min: 0, max: 50, step: 0.1 },
+    metaLeftY: { value: 4.4, min: 0, max: 95, step: 0.1 },
+    metaRightX: { value: 44.0, min: 30, max: 95, step: 0.1 },
+    metaRightY: { value: 9.0, min: 0, max: 95, step: 0.1 },
+    taglineSize: { value: 20.0, min: 10, max: 28, step: 0.5 },
+    logoSize: { value: 16, min: 10, max: 26, step: 0.5 },
+  });
+
   const roundness = useControls("Roundness", {
     photo: { value: 0, min: 0, max: 80, step: 1 },
-    card: { value: 65, min: 0, max: 80, step: 1 },
-    form: { value: 65, min: 0, max: 80, step: 1 },
+    card: { value: 30, min: 0, max: 80, step: 1 },
+    form: { value: 30, min: 0, max: 80, step: 1 },
     inputs: { value: 31, min: 0, max: 40, step: 1 },
   });
 
@@ -170,7 +201,7 @@ export default function App() {
 
   return (
     <>
-      <Leva hidden />
+      <Leva collapsed oneLineLabels titleBar={{ title: "Carla Piras — controls" }} />
       <MeshlineCursor params={cursor} />
       <PointerDot params={pointer} />
       <Hero
@@ -180,6 +211,8 @@ export default function App() {
         chisono={chisono}
         tilt={tilt}
         meta={meta}
+        mobile={mobile}
+        isMobile={isMobile}
       />
     </>
   );
