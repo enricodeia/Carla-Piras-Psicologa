@@ -78,6 +78,7 @@ export default function Hero({
   const badgeRef = useRef(null);
   const metaLeftRef = useRef(null);
   const metaRightRef = useRef(null);
+  const roleRef = useRef(null);
   const logoRef = useRef(null);
   const logoCharsRef = useRef([]);
 
@@ -136,6 +137,7 @@ export default function Hero({
           badgeRef.current,
           metaLeftRef.current,
           metaRightRef.current,
+          roleRef.current,
         ],
         { autoAlpha: 0, y: 14 }
       );
@@ -287,6 +289,7 @@ export default function Hero({
             badgeRef.current,
             metaLeftRef.current,
             metaRightRef.current,
+            roleRef.current,
           ],
           {
             autoAlpha: 1,
@@ -388,9 +391,11 @@ export default function Hero({
     const footItems = footRef.current
       ? footRef.current.querySelectorAll(".tagline, .foot-cta")
       : [];
-    const metaItems = [metaLeftRef.current, metaRightRef.current].filter(
-      Boolean
-    );
+    const metaItems = [
+      metaLeftRef.current,
+      metaRightRef.current,
+      roleRef.current,
+    ].filter(Boolean);
 
     if (nextIsPanel && !prevIsPanel) {
       tl.to(
@@ -825,6 +830,10 @@ export default function Hero({
         ))}
       </div>
 
+      <div className="photo-role" ref={roleRef} aria-hidden="true">
+        Psicologa
+      </div>
+
       <figure className="photo" ref={photoRef} style={photoStyle}>
         <div className="photo-inner" ref={photoInnerRef}>
           <img
@@ -981,13 +990,7 @@ export default function Hero({
             className="foot-cta foot-cta--secondary"
             onClick={() => toggleSection("chi-sono")}
           >
-            <StaggerButton
-              as="span"
-              className="foot-cta-label"
-              triggerSelector=".foot-cta--secondary"
-            >
-              Chi sono
-            </StaggerButton>
+            <span className="foot-cta-label">Chi sono</span>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="5" y1="12" x2="19" y2="12" />
               <polyline points="12 5 19 12 12 19" />

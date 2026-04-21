@@ -368,6 +368,36 @@
   filter: saturate(0.92) contrast(1.02);
 }
 
+/* PHOTO ROLE (above the photo) */
+.photo-role {
+  position: absolute;
+  top: 13vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 11;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  opacity: 0.75;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.hero:not([data-ready="true"]) .photo-role {
+  visibility: hidden;
+}
+
+@media (max-width: 900px) {
+  .photo-role {
+    top: 23vh;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+  }
+}
+
 /* PERCENTAGE */
 .percentage {
   position: absolute;
