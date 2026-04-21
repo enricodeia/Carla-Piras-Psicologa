@@ -375,13 +375,12 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 11;
-  font-family: var(--font-sans);
+  font-family: "Instrument Serif", Georgia, serif;
   font-weight: 400;
-  font-size: 10px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  opacity: 0.75;
+  font-style: italic;
+  font-size: 22px;
+  letter-spacing: 0;
+  color: var(--blue-900);
   white-space: nowrap;
   pointer-events: none;
 }
@@ -393,8 +392,7 @@
 @media (max-width: 900px) {
   .photo-role {
     top: 23vh;
-    font-size: 9px;
-    letter-spacing: 0.2em;
+    font-size: 18px;
   }
 }
 
