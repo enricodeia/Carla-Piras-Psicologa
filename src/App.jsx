@@ -148,7 +148,7 @@ export default function App() {
     metaRightX: { value: 44.0, min: 30, max: 95, step: 0.1 },
     metaRightY: { value: 9.0, min: 0, max: 95, step: 0.1 },
     taglineSize: { value: 22, min: 10, max: 32, step: 0.5 },
-    taglineMarginLeft: { value: 0, min: -40, max: 60, step: 0.5 },
+    taglineMarginLeft: { value: 21, min: -40, max: 60, step: 0.5 },
     logoSize: { value: 24, min: 10, max: 40, step: 0.5 },
   });
 

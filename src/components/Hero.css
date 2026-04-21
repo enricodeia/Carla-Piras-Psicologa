@@ -10,7 +10,6 @@
   background: var(--beige-100);
   overflow: hidden;
   isolation: isolate;
-  perspective: 1400px;
 }
 
 .hero:not([data-ready="true"]) .letter,
@@ -321,6 +320,7 @@
   --mask-y: 50%;
   clip-path: inset(var(--mask-y) 0% var(--mask-y) 0%);
   will-change: clip-path, transform, width, height;
+  perspective: 1400px;
   transform-style: preserve-3d;
   transition:
     width 0.9s cubic-bezier(0.65, 0, 0.35, 1),
@@ -341,7 +341,7 @@
   .hero[data-active="chi-sono"] .photo,
   .hero[data-active="come-lavoro"] .photo {
     width: 100vw;
-    height: 50vh;
+    height: 40dvh;
   }
 }
 
@@ -763,7 +763,7 @@ a.ct-val:hover::after {
     left: 0;
     right: 0;
     width: 100vw;
-    height: 50vh;
+    height: 60dvh;
     translate: 0 0;
     border-radius: var(--r-card, 14px) var(--r-card, 14px) 0 0;
     overflow-y: auto;
