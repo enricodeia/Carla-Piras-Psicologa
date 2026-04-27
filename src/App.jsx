@@ -169,7 +169,7 @@ export default function App() {
 
   const cursor = useControls("Cursor trail", {
     enabled: true,
-    numLines: { value: 4, min: 1, max: 8, step: 1 },
+    numLines: { value: 1, min: 1, max: 8, step: 1 },
     numPoints: { value: 36, min: 6, max: 60, step: 1 },
     spring: { value: 0.04, min: 0.01, max: 0.25, step: 0.005 },
     friction: { value: 0.9, min: 0.5, max: 0.98, step: 0.01 },

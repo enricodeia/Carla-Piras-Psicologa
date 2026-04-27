@@ -88,6 +88,76 @@ export default function Hero({
   const [footCtaHover, setFootCtaHover] = useState(false);
   const ctaHover = navCtaHover || footCtaHover;
   const [menuOpen, setMenuOpen] = useState(false);
+  const [version, setVersion] = useState("A");
+  const versionBLeftRef = useRef(null);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.target && /input|textarea|select/i.test(e.target.tagName)) return;
+      if (e.key === "1") setVersion("A");
+      if (e.key === "2") setVersion("B");
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  useEffect(() => {
+    if (!preloadComplete) return;
+    const tl = gsap.timeline();
+    if (version === "B") {
+      tl.to(
+        [...carlaCharsRef.current, ...pirasCharsRef.current],
+        {
+          autoAlpha: 0,
+          duration: 0.5,
+          ease: "power3.in",
+          stagger: 0.018,
+        },
+        0
+      );
+      tl.to(
+        photoRef.current,
+        { x: "20vw", duration: 0.9, ease: "power3.inOut" },
+        0.1
+      );
+      if (versionBLeftRef.current) {
+        tl.fromTo(
+          versionBLeftRef.current,
+          { autoAlpha: 0, x: -30 },
+          { autoAlpha: 1, x: 0, duration: 0.7, ease: "power3.out" },
+          0.3
+        );
+      }
+    } else {
+      if (versionBLeftRef.current) {
+        tl.to(
+          versionBLeftRef.current,
+          {
+            autoAlpha: 0,
+            x: -30,
+            duration: 0.4,
+            ease: "power3.in",
+          },
+          0
+        );
+      }
+      tl.to(
+        photoRef.current,
+        { x: 0, duration: 0.9, ease: "power3.inOut" },
+        0
+      );
+      tl.to(
+        [...carlaCharsRef.current, ...pirasCharsRef.current],
+        {
+          autoAlpha: 1,
+          duration: 0.55,
+          ease: "power3.out",
+          stagger: 0.018,
+        },
+        0.2
+      );
+    }
+  }, [version, preloadComplete]);
 
   // Synchronous initial state — runs BEFORE paint so there's no FOUC
   useLayoutEffect(() => {
@@ -664,6 +734,7 @@ export default function Hero({
       className="hero"
       ref={rootRef}
       data-active={activeSection || "home"}
+      data-version={version}
       data-preload-complete={preloadComplete ? "true" : undefined}
       style={
         isMobile && mobile
@@ -833,6 +904,34 @@ export default function Hero({
       <div className="photo-role" ref={roleRef} aria-hidden="true">
         Psicologa
       </div>
+
+      <aside className="version-b-left" ref={versionBLeftRef} aria-hidden={version !== "B"}>
+        <span className="vbl-eyebrow">Psicologa clinica · Milano &amp; Online</span>
+        <h2 className="vbl-title">
+          Carla <em>Piras</em>
+        </h2>
+        <p className="vbl-body">
+          Uno spazio per ascoltare, comprendere
+          <br />
+          e accogliere ciò che stai vivendo.
+        </p>
+        <div className="vbl-actions">
+          <button
+            type="button"
+            className="vbl-cta vbl-cta--primary"
+            onClick={() => setActiveSection("contatti")}
+          >
+            Prenota un colloquio
+          </button>
+          <button
+            type="button"
+            className="vbl-cta vbl-cta--secondary"
+            onClick={() => toggleSection("chi-sono")}
+          >
+            Chi sono
+          </button>
+        </div>
+      </aside>
 
       <figure className="photo" ref={photoRef} style={photoStyle}>
         <div className="photo-inner" ref={photoInnerRef}>
